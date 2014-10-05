@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+version = "rv0"
+group= "com.github.parker8283" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "BowInfinityFix"
+
+minecraft {
+    version = "1.7.10-10.13.0.1208"
+    runDir = "run"
+}
+
+processResources
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include '*.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '*.info'
+    }
+}
+
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'com.github.parker8283.bif.BowInfinityFix'
+    }
+    version = "1.7.10-${version}"
+}

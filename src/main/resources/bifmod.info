@@ -1,0 +1,16 @@
+[
+{
+  "modid": "bowinfinityfix",
+  "name": "Bow Infinity Fix",
+  "description": "Removes need to have an arrow in your inventory to use the Infinity I enchant on your bow.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Parker8283"],
+  "credits": "Original idea from Myrathi",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
