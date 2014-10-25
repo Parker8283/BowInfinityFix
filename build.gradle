@@ -15,14 +15,14 @@ buildscript {
     }
 }
 
-apply plugin: 'forge'
+apply plugin: 'fml'
 
-version = "rv0"
+version = "rv1"
 group= "com.github.parker8283" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "BowInfinityFix"
 
 minecraft {
-    version = "1.7.10-10.13.0.1208"
+    version = "1.8-7.10.98.1004-1.8"
     runDir = "run"
 }
 
@@ -50,5 +50,5 @@ jar {
     manifest {
         attributes 'FMLCorePlugin': 'com.github.parker8283.bif.BowInfinityFix'
     }
-    version = "1.7.10-${version}"
+    version = "1.8-${version}"
 }

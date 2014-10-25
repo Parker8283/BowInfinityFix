@@ -2,7 +2,7 @@ package com.github.parker8283.bif.asm;
 
 import java.util.HashMap;
 
-import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
+import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 
 /**
  * Stolen directly from AppleCore

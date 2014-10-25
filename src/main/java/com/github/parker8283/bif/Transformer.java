@@ -48,7 +48,7 @@ public class Transformer implements IClassTransformer {
         toInject.add(new FieldInsnNode(GETSTATIC, RemappingHelper.getInternalClassName("net.minecraft.enchantment.Enchantment"), isObfuscated ? "y" : "infinity", RemappingHelper.getDescriptor("net.minecraft.enchantment.Enchantment")));
         toInject.add(new FieldInsnNode(GETFIELD, RemappingHelper.getInternalClassName("net.minecraft.enchantment.Enchantment"), isObfuscated ? "B" : "effectId", "I"));
         toInject.add(new VarInsnNode(ALOAD, 1));
-        toInject.add(new MethodInsnNode(INVOKESTATIC, RemappingHelper.getInternalClassName("net.minecraft.enchantment.EnchantmentHelper"), isObfuscated ? "a" : "getEnchantmentLevel", "(I" + RemappingHelper.getDescriptor("net.minecraft.item.ItemStack") + ")I"));
+        toInject.add(new MethodInsnNode(INVOKESTATIC, RemappingHelper.getInternalClassName("net.minecraft.enchantment.EnchantmentHelper"), isObfuscated ? "a" : "getEnchantmentLevel", "(I" + RemappingHelper.getDescriptor("net.minecraft.item.ItemStack") + ")I", false));
         toInject.add(new JumpInsnNode(IFGT, ((JumpInsnNode)targetNode).label));
 
         method.instructions.insertBefore(targetNode.getNext(), toInject);

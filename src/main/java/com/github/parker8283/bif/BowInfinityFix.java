@@ -8,12 +8,12 @@ import org.apache.logging.log4j.Logger;
 import com.github.parker8283.bif.asm.RemappingHelper;
 import com.google.common.eventbus.EventBus;
 
-import cpw.mods.fml.common.DummyModContainer;
-import cpw.mods.fml.common.LoadController;
-import cpw.mods.fml.common.MetadataCollection;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+import net.minecraftforge.fml.common.DummyModContainer;
+import net.minecraftforge.fml.common.LoadController;
+import net.minecraftforge.fml.common.MetadataCollection;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
-@IFMLLoadingPlugin.MCVersion("1.7.10")
+@IFMLLoadingPlugin.MCVersion("1.8")
 @IFMLLoadingPlugin.TransformerExclusions({"com.github.parker8283.bif."})
 public class BowInfinityFix extends DummyModContainer implements IFMLLoadingPlugin {
 
