@@ -21,13 +21,6 @@ public class ASMHelper {
 
     public static byte[] writeClassToBytes(ClassNode classNode)
     {
-        ClassWriter writer = new RemappingClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
-        classNode.accept(writer);
-        return writer.toByteArray();
-    }
-
-    public static byte[] writeClassToBytesNoRemap(ClassNode classNode)
-    {
         ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
         classNode.accept(writer);
         return writer.toByteArray();

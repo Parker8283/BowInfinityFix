@@ -1,46 +1,45 @@
+
+// For those who want the bleeding edge
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
         maven {
-            name = "forge"
+            name = "Forge"
             url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
     }
 }
+apply plugin: 'net.minecraftforge.gradle.forge'
 
-apply plugin: 'fml'
+/*
+// for people who want stable
+plugins {
+    id "net.minecraftforge.gradle.forge" version "2.0.2"
+}
+*/
 
-version = "rv1"
-group= "com.github.parker8283" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "rv2"
+group = "com.github.parker8283"
 archivesBaseName = "BowInfinityFix"
 
 minecraft {
-    version = "1.8-7.10.98.1004-1.8"
+    version = "1.8-11.14.4.1577"
     runDir = "run"
+    mappings = "stable_18"
 }
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
+processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include '*.info'
-                
-        // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
-    // copy everything else, thats not the mcmod.info
+
     from(sourceSets.main.resources.srcDirs) {
         exclude '*.info'
     }
@@ -48,7 +47,7 @@ processResources
 
 jar {
     manifest {
-        attributes 'FMLCorePlugin': 'com.github.parker8283.bif.BowInfinityFix'
+        attributes 'FMLCorePlugin': 'com.github.parker8283.bif.BIFLoader'
     }
-    version = "1.8-${version}"
+    version = "1.8.x-${version}"
 }
