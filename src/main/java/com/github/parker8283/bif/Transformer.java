@@ -20,7 +20,7 @@ public class Transformer implements IClassTransformer {
 
             ClassNode classNode = ASMHelper.readClassFromBytes(basicClass);
 
-            MethodNode methodNode = ASMHelper.findMethodNodeOfClass(classNode, isDev ? "onItemRightClick" : "func_77659_a", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/util/EnumHand;)Lnet/minecraft/util/ActionResult;");
+            MethodNode methodNode = ASMHelper.findMethodNodeOfClass(classNode, isDev ? "onItemRightClick" : "func_77659_a", "(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/util/EnumHand;)Lnet/minecraft/util/ActionResult;");
             if(methodNode != null) {
                 log.info("Found onItemRightClick method");
                 injectInfinityCheck(methodNode, isDev);
@@ -37,16 +37,16 @@ public class Transformer implements IClassTransformer {
         /* Injected Bytecode
         LDC "infinity"
         INVOKESTATIC net/minecraft/enchantment/Enchantment.getEnchantmentByLocation (Ljava/lang/String;)Lnet/minecraft/enchantment/Enchantment;
-        ALOAD 1
+        ALOAD 4
         INVOKESTATIC net/minecraft/enchantment/EnchantmentHelper.getEnchantmentLevel (Lnet/minecraft/enchantment/Enchantment;Lnet/minecraft/item/ItemStack;)I
-        IFNE L6
+        IFNE L7
          */
-        AbstractInsnNode targetNode = ASMHelper.getOrFindInstructionOfType(method.instructions.getFirst(), IFNE, 2, false);
+        AbstractInsnNode targetNode = ASMHelper.getOrFindInstructionOfType(method.instructions.getFirst(), IFNE, 3, false);
 
         InsnList toInject = new InsnList();
         toInject.add(new LdcInsnNode("infinity"));
         toInject.add(new MethodInsnNode(INVOKESTATIC, "net/minecraft/enchantment/Enchantment", isDev ? "getEnchantmentByLocation" : "func_180305_b", "(Ljava/lang/String;)Lnet/minecraft/enchantment/Enchantment;", false));
-        toInject.add(new VarInsnNode(ALOAD, 1));
+        toInject.add(new VarInsnNode(ALOAD, 4));
         toInject.add(new MethodInsnNode(INVOKESTATIC, "net/minecraft/enchantment/EnchantmentHelper", isDev ? "getEnchantmentLevel" : "func_77506_a", "(Lnet/minecraft/enchantment/Enchantment;Lnet/minecraft/item/ItemStack;)I", false));
         toInject.add(new JumpInsnNode(IFNE, ((JumpInsnNode)targetNode).label));
 

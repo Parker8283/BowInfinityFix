@@ -12,21 +12,22 @@ import net.minecraft.world.World;
 
 public abstract class FixedItemBow extends ItemBow {
 
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
-        boolean flag = this.findAmmo(playerIn) != null;
+        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        boolean flag = !this.findAmmo(playerIn).isEmpty();
 
-        ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemStackIn, worldIn, playerIn, hand, flag);
+        ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, flag);
         if (ret != null) return ret;
 
-        if (!playerIn.capabilities.isCreativeMode && !flag && EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("infinity"), itemStackIn) == 0)
+        if (!playerIn.capabilities.isCreativeMode && !flag && EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("infinity"), itemstack) == 0)
         {
-            return !flag ? new ActionResult(EnumActionResult.FAIL, itemStackIn) : new ActionResult(EnumActionResult.PASS, itemStackIn);
+            return flag ? new ActionResult(EnumActionResult.PASS, itemstack) : new ActionResult(EnumActionResult.FAIL, itemstack);
         }
         else
         {
-            playerIn.setActiveHand(hand);
-            return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+            playerIn.setActiveHand(handIn);
+            return new ActionResult(EnumActionResult.SUCCESS, itemstack);
         }
     }
 

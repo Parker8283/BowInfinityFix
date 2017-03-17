@@ -21,14 +21,14 @@ plugins {
 }
 */
 
-version = "rv3"
+version = "rv4"
 group = "com.github.parker8283"
 archivesBaseName = "BowInfinityFix"
 
 minecraft {
-    version = "1.10.2-12.18.3.2254"
+    version = "1.11.2-13.20.0.2259"
     runDir = "run"
-    mappings = "stable_29"
+    mappings = "snapshot_20170317"
 }
 
 processResources {
@@ -49,5 +49,5 @@ jar {
     manifest {
         attributes 'FMLCorePlugin': 'com.github.parker8283.bif.BIFLoader'
     }
-    version = "1.9.x-1.10.x-${version}"
+    version = "1.11.x-${version}"
 }
