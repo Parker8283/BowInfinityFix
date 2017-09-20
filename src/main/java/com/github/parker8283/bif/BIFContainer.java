@@ -1,5 +1,7 @@
 package com.github.parker8283.bif;
 
+import java.security.cert.Certificate;
+import javax.annotation.Nullable;
 import net.minecraftforge.fml.common.DummyModContainer;
 import net.minecraftforge.fml.common.LoadController;
 import net.minecraftforge.fml.common.MetadataCollection;
@@ -16,5 +18,12 @@ public class BIFContainer extends DummyModContainer {
     @Override
     public boolean registerBus(EventBus bus, LoadController controller) {
         return true;
+    }
+
+    @Nullable
+    @Override
+    public Certificate getSigningCertificate() {
+        Certificate[] certificates = getClass().getProtectionDomain().getCodeSource().getCertificates();
+        return certificates != null ? certificates[0] : null;
     }
 }

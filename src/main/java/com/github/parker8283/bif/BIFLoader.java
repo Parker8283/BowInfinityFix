@@ -16,8 +16,9 @@ public class BIFLoader implements IFMLLoadingPlugin {
     public static Boolean DEV_ENV = null;
 
     public BIFLoader() {
-        if(!((String)FMLInjectionData.data()[4]).startsWith("1.11")) {
-            throw new RuntimeException("Wrong Minecraft Version for BowInfinityFix; Must be 1.11 or 1.11.2");
+        String ver = (String)FMLInjectionData.data()[4];
+        if(!ver.startsWith("1.11") && !ver.startsWith("1.12")) {
+            throw new RuntimeException("Wrong Minecraft Version for BowInfinityFix; Must be 1.11, 1.11.2, 1.12, 1.12.1, or 1.12.2");
         }
     }
 

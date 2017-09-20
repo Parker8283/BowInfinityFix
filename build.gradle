@@ -1,5 +1,3 @@
-
-// For those who want the bleeding edge
 buildscript {
     repositories {
         jcenter()
@@ -9,26 +7,19 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-/*
-// for people who want stable
-plugins {
-    id "net.minecraftforge.gradle.forge" version "2.0.2"
-}
-*/
-
-version = "rv4"
+version = "rv5"
 group = "com.github.parker8283"
 archivesBaseName = "BowInfinityFix"
 
 minecraft {
-    version = "1.11.2-13.20.0.2259"
+    version = "1.12.2-14.23.0.2486"
     runDir = "run"
-    mappings = "snapshot_20170317"
+    mappings = "snapshot_20170919"
 }
 
 processResources {
@@ -49,5 +40,26 @@ jar {
     manifest {
         attributes 'FMLCorePlugin': 'com.github.parker8283.bif.BIFLoader'
     }
-    version = "1.11.x-${version}"
+    version = "1.11.x-1.12.x-${version}"
 }
+
+/*
+ In compliance with new Forge rules.
+ Properties stored in my local Gradle cache.
+ Only I should be signing my jars.
+ The task is set up so you can build a local copy without needing these properties.
+ The certificate is included in the source for verification purposes only.
+ */
+task signJar << {
+    ant.signjar(jar: jar.archivePath,
+                keystore: project.keystorePath,
+                alias: project.keystoreAlias,
+                storepass: project.keystorePass,
+                keypass: project.keystoreKeypass,
+                tsaurl: project.tsaurl)
+}
+signJar.onlyIf {
+    project.hasProperty('keystorePath')
+}
+signJar.dependsOn reobfJar
+build.dependsOn signJar
