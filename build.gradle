@@ -1,65 +1,60 @@
 buildscript {
     repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven {
-            name = "Forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
 
-version = "rv5"
-group = "com.github.parker8283"
-archivesBaseName = "BowInfinityFix"
+version = 'rv6'
+group = 'net.parker8283'
+archivesBaseName = 'BowInfinityFix'
 
 minecraft {
-    version = "1.12.2-14.23.0.2486"
-    runDir = "run"
-    mappings = "snapshot_20170919"
+    mappings channel: 'stable', version: '43-1.13'
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                bowinfinityfix {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                bowinfinityfix {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
 }
 
-processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include '*.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude '*.info'
-    }
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.13.2-25.0.68'
 }
 
 jar {
     manifest {
-        attributes 'FMLCorePlugin': 'com.github.parker8283.bif.BIFLoader'
+        attributes([
+            "Specification-Title": "bowinfinityfix",
+            "Specification-Vendor": "parker8283",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"Parker8283",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
-    version = "1.11.x-1.12.x-${version}"
+    version = "1.13.2-${project.version}"
 }
-
-/*
- In compliance with new Forge rules.
- Properties stored in my local Gradle cache.
- Only I should be signing my jars.
- The task is set up so you can build a local copy without needing these properties.
- The certificate is included in the source for verification purposes only.
- */
-task signJar << {
-    ant.signjar(jar: jar.archivePath,
-                keystore: project.keystorePath,
-                alias: project.keystoreAlias,
-                storepass: project.keystorePass,
-                keypass: project.keystoreKeypass,
-                tsaurl: project.tsaurl)
-}
-signJar.onlyIf {
-    project.hasProperty('keystorePath')
-}
-signJar.dependsOn reobfJar
-build.dependsOn signJar
