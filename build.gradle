@@ -12,14 +12,14 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "rv5"
-group = "com.github.parker8283"
+version = "rv5.1"
+group = "net.parker8283"
 archivesBaseName = "BowInfinityFix"
 
 minecraft {
-    version = "1.12.2-14.23.0.2486"
+    version = "1.12.2-14.23.5.2768"
     runDir = "run"
-    mappings = "snapshot_20170919"
+    mappings = "stable_39"
 }
 
 processResources {
@@ -36,30 +36,4 @@ processResources {
     }
 }
 
-jar {
-    manifest {
-        attributes 'FMLCorePlugin': 'com.github.parker8283.bif.BIFLoader'
-    }
-    version = "1.11.x-1.12.x-${version}"
-}
-
-/*
- In compliance with new Forge rules.
- Properties stored in my local Gradle cache.
- Only I should be signing my jars.
- The task is set up so you can build a local copy without needing these properties.
- The certificate is included in the source for verification purposes only.
- */
-task signJar << {
-    ant.signjar(jar: jar.archivePath,
-                keystore: project.keystorePath,
-                alias: project.keystoreAlias,
-                storepass: project.keystorePass,
-                keypass: project.keystoreKeypass,
-                tsaurl: project.tsaurl)
-}
-signJar.onlyIf {
-    project.hasProperty('keystorePath')
-}
-signJar.dependsOn reobfJar
-build.dependsOn signJar
+jar.version = "1.12.2-${version}"
