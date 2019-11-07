@@ -10,12 +10,12 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle'
 
-version = 'rv6'
+version = 'rv7'
 group = 'net.parker8283'
 archivesBaseName = 'BowInfinityFix'
 
 minecraft {
-    mappings channel: 'stable', version: '43-1.13'
+    mappings channel: 'stable', version: '53-1.14.2'
     runs {
         client {
             workingDirectory project.file('run')
@@ -37,11 +37,23 @@ minecraft {
                 }
             }
         }
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'bowinfinityfix', '--all', '--output', file('src/generated/resources/')
+
+            mods {
+                bowinfinityfix {
+                    source sourceSets.main
+                }
+            }
+        }
     }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.13.2-25.0.68'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.0'
 }
 
 jar {
@@ -56,5 +68,5 @@ jar {
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-    version = "1.13.2-${project.version}"
+    version = "1.14.4-${project.version}"
 }
