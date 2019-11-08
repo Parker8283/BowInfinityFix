@@ -10,7 +10,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle'
 
-version = 'rv7'
+version = 'rv7.1'
 group = 'net.parker8283'
 archivesBaseName = 'BowInfinityFix'
 
