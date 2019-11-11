@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "net.parker8283.bif",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BowInfinityFix"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
