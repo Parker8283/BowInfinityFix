@@ -5,7 +5,6 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -21,7 +20,7 @@ public class BowInfinityFix {
         ItemStack stack = player.getStackInHand(hand);
         if (EnchantmentHelper.getLevel(Enchantments.INFINITY, stack) > 0) {
             player.setCurrentHand(hand);
-            cir.setReturnValue(new TypedActionResult<>(ActionResult.SUCCESS, stack));
+            cir.setReturnValue(TypedActionResult.success(stack));
         }
     }
 }

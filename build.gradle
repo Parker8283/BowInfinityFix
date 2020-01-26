@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.2.5-SNAPSHOT'
+    id 'fabric-loom' version '0.2.6-SNAPSHOT'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -13,7 +13,7 @@ minecraft {}
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
     // Technically don't need this, but will keep in just in case
     modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
@@ -50,5 +50,5 @@ jar {
         ])
     }
     from "LICENSE"
-    archiveAppendix.set "1.14.4-fabric"
+    archiveAppendix.set "1.15.2-fabric"
 }
