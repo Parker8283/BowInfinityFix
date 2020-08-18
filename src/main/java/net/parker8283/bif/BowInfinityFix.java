@@ -22,7 +22,7 @@ public class BowInfinityFix {
     private void infinityFix(final ArrowNockEvent event) {
         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, event.getBow()) > 0) {
             event.getPlayer().setActiveHand(event.getHand());
-            event.setAction(ActionResult.func_226248_a_(event.getBow()));
+            event.setAction(ActionResult.resultConsume(event.getBow()));
         }
     }
 }
