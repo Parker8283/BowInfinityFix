@@ -21,6 +21,6 @@ description='Removes need to have an arrow in your inventory to use the Infinity
 [[dependencies.bowinfinityfix]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.1,1.16.2]"
+    versionRange="[1.16.1,1.17)"
     ordering="NONE"
     side="BOTH"
