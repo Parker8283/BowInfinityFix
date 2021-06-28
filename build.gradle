@@ -9,11 +9,9 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-minecraft {}
-
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    mappings minecraft.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     // Technically don't need this, but will keep in just in case
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
@@ -27,11 +25,14 @@ processResources {
     }
 }
 
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+tasks.withType(JavaCompile).configureEach {
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    it.options.encoding = "UTF-8"
+
+    // Minecraft 1.17 (21w19a) upwards uses Java 16.
+    it.options.release = 16
 }
 
 jar {
@@ -46,6 +47,9 @@ jar {
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-    from "LICENSE"
-    archiveAppendix.set "1.17.x-fabric"
+    from ("LICENSE") { rename { "${it}_${project.archivesBaseName}" } }
+}
+
+tasks.withType(org.gradle.jvm.tasks.Jar).configureEach {
+    it.archiveAppendix.set "1.17.x-fabric"
 }
