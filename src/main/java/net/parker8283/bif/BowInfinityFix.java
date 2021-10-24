@@ -1,8 +1,8 @@
 package net.parker8283.bif;
 
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,9 +20,9 @@ public class BowInfinityFix {
     }
 
     private void infinityFix(final ArrowNockEvent event) {
-        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, event.getBow()) > 0) {
-            event.getPlayer().setActiveHand(event.getHand());
-            event.setAction(ActionResult.resultConsume(event.getBow()));
+        if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, event.getBow()) > 0) {
+            event.getPlayer().startUsingItem(event.getHand());
+            event.setAction(InteractionResultHolder.success(event.getBow()));
         }
     }
 }

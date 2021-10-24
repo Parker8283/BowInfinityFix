@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[32,)"
+loaderVersion="[37,)"
 license="LGPL v3"
 issueTrackerURL="https://github.com/Parker8283/BowInfinityFix/issues"
 
@@ -15,12 +15,12 @@ description='Removes need to have an arrow in your inventory to use the Infinity
 [[dependencies.bowinfinityfix]]
     modId="forge"
     mandatory=true
-    versionRange="[32,)"
+    versionRange="[37,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.bowinfinityfix]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.1,1.17)"
+    versionRange="[1.17.1,1.18)"
     ordering="NONE"
     side="BOTH"
