@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 @Mod("bowinfinityfix")
 public class BowInfinityFix {
-
     private static final Logger LOGGER = LogManager.getLogger("BowInfinityFix");
 
     public BowInfinityFix() {
