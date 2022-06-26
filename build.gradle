@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -11,9 +11,10 @@ group = project.maven_group
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings minecraft.officialMojangMappings()
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    // Technically don't need this, but will keep in just in case
+
+    // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
@@ -46,5 +47,5 @@ jar {
 }
 
 tasks.withType(org.gradle.jvm.tasks.Jar).configureEach {
-    it.archiveAppendix.set "1.18.x-fabric"
+    it.archiveAppendix.set "1.19.x-fabric"
 }
