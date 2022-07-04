@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[38,)"
+loaderVersion="[41,)"
 license="LGPL v3"
 issueTrackerURL="https://github.com/Parker8283/BowInfinityFix/issues"
 
@@ -7,7 +7,7 @@ issueTrackerURL="https://github.com/Parker8283/BowInfinityFix/issues"
 modId="bowinfinityfix"
 version="${file.jarVersion}"
 displayName="Bow Infinity Fix"
-displayURL="https://minecraft.curseforge.com/projects/bow-infinity-fix"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/bow-infinity-fix"
 credits="Thanks to Myrathi for the original idea"
 authors="Parker8283"
 description='Removes need to have an arrow in your inventory to use the Infinity enchant on your bow.'
@@ -15,12 +15,12 @@ description='Removes need to have an arrow in your inventory to use the Infinity
 [[dependencies.bowinfinityfix]]
     modId="forge"
     mandatory=true
-    versionRange="[38,)"
+    versionRange="[41,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.bowinfinityfix]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18,1.19)"
+    versionRange="[1.19,1.20)"
     ordering="NONE"
     side="BOTH"
