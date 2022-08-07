@@ -15,7 +15,7 @@ description='Removes need to have an arrow in your inventory to use the Infinity
 [[dependencies.bowinfinityfix]]
     modId="forge"
     mandatory=true
-    versionRange="[41,)"
+    versionRange="[41.0.94,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.bowinfinityfix]]

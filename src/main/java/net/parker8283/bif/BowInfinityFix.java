@@ -20,7 +20,7 @@ public class BowInfinityFix {
 
     private void infinityFix(final ArrowNockEvent event) {
         if (event.getBow().getEnchantmentLevel(Enchantments.INFINITY_ARROWS) > 0) {
-            event.getPlayer().startUsingItem(event.getHand());
+            event.getEntity().startUsingItem(event.getHand());
             event.setAction(InteractionResultHolder.success(event.getBow()));
         }
     }
