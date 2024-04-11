@@ -2,9 +2,9 @@ package net.parker8283.bif;
 
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.ArrowNockEvent;
+import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +14,7 @@ public class BowInfinityFix {
     private static final Logger LOGGER = LogManager.getLogger("BowInfinityFix");
 
     public BowInfinityFix() {
-        MinecraftForge.EVENT_BUS.addListener(this::infinityFix);
+        NeoForge.EVENT_BUS.addListener(this::infinityFix);
         LOGGER.info("Fix Registered!");
     }
 
