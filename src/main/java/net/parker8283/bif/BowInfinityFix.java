@@ -1,9 +1,12 @@
 package net.parker8283.bif;
 
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.player.ArrowNockEvent;
+import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent;
 import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,10 +21,12 @@ public class BowInfinityFix {
         LOGGER.info("Fix Registered!");
     }
 
-    private void infinityFix(final ArrowNockEvent event) {
-        if (event.getBow().getEnchantmentLevel(Enchantments.INFINITY_ARROWS) > 0) {
-            event.getEntity().startUsingItem(event.getHand());
-            event.setAction(InteractionResultHolder.success(event.getBow()));
+    private void infinityFix(final LivingGetProjectileEvent event) {
+        if (event.getEntity() instanceof Player &&
+                event.getProjectileWeaponItemStack().getItem() instanceof ProjectileWeaponItem &&
+                event.getProjectileItemStack().isEmpty() &&
+                event.getProjectileWeaponItemStack().getEnchantmentLevel(Enchantments.INFINITY) > 0) {
+            event.setProjectileItemStack(new ItemStack(Items.ARROW));
         }
     }
 }
