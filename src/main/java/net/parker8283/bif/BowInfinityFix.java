@@ -1,13 +1,13 @@
 package net.parker8283.bif;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ProjectileWeaponItem;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent;
-import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,11 +22,20 @@ public class BowInfinityFix {
     }
 
     private void infinityFix(final LivingGetProjectileEvent event) {
-        if (event.getEntity() instanceof Player &&
-                event.getProjectileWeaponItemStack().getItem() instanceof ProjectileWeaponItem &&
-                event.getProjectileItemStack().isEmpty() &&
-                event.getProjectileWeaponItemStack().getEnchantmentLevel(Enchantments.INFINITY) > 0) {
-            event.setProjectileItemStack(new ItemStack(Items.ARROW));
+        if (event.getEntity() instanceof Player player &&
+                player.level() instanceof ServerLevel level &&
+                event.getProjectileWeaponItemStack().getItem() instanceof ProjectileWeaponItem pwi &&
+                event.getProjectileItemStack().isEmpty()) {
+            var defaultStack = pwi.getDefaultCreativeAmmo(player, event.getProjectileWeaponItemStack());
+            int countToUse;
+            if (defaultStack.getItem() instanceof ArrowItem ai && ai.isInfinite(defaultStack, event.getProjectileWeaponItemStack(), player)) {
+                countToUse = 0;
+            } else {
+                countToUse = EnchantmentHelper.processAmmoUse(level, event.getProjectileWeaponItemStack(), defaultStack, 1);
+            }
+            if (countToUse == 0) {
+                event.setProjectileItemStack(defaultStack);
+            }
         }
     }
 }

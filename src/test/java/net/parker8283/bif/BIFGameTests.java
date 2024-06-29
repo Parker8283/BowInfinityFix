@@ -1,11 +1,15 @@
 package net.parker8283.bif;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
+import net.minecraft.gametest.framework.GameTestAssertException;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameType;
 import net.neoforged.neoforge.gametest.GameTestHolder;
@@ -62,6 +66,13 @@ public class BIFGameTests {
         helper.succeedIf(runAmmoTest(helper, player, true, true, true));
     }
 
+    private static Holder<Enchantment> getInfinityEnchantment(GameTestHelper helper) {
+        return helper.getLevel().registryAccess()
+                .registryOrThrow(Registries.ENCHANTMENT)
+                .getHolder(Enchantments.INFINITY)
+                .orElseThrow(() -> new GameTestAssertException("minecraft:infinity enchantment cannot be found!"));
+    }
+
     private static Player makeBIFMockPlayer(GameTestHelper helper, GameType gameType, boolean isCrossbow, boolean isEnchanted) {
         Player ret = helper.makeMockPlayer(gameType);
         gameType.updatePlayerAbilities(ret.getAbilities()); // Not sure why I have to manually do this...
@@ -72,7 +83,7 @@ public class BIFGameTests {
             weaponStack = new ItemStack(Items.BOW);
         }
         if (isEnchanted) {
-            weaponStack.enchant(Enchantments.INFINITY, 1);
+            weaponStack.enchant(getInfinityEnchantment(helper), 1);
         }
         ret.setItemInHand(InteractionHand.MAIN_HAND, weaponStack);
         return ret;
@@ -88,7 +99,7 @@ public class BIFGameTests {
                 helper.fail("Main Hand item isn't a bow??!? (" + weapon + ")");
             }
             // ...and that the enchantment level is correct
-            int enchLevel = weapon.getEnchantmentLevel(Enchantments.INFINITY);
+            int enchLevel = weapon.getEnchantmentLevel(getInfinityEnchantment(helper));
             if (shouldBeEnchanted && enchLevel == 0) {
                 helper.fail("Weapon wasn't enchanted. (" + weapon + ", infinity_level=" + enchLevel + ")");
             } else if (!shouldBeEnchanted && enchLevel > 0) {
