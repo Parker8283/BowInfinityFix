@@ -82,6 +82,13 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
+// I don't use JUnit, but it tries to run my gametests as junit tests
+tasks.configureEach { task ->
+    if (task.name.startsWith("testJunit")) {
+        task.enabled false
+    }
+}
+
 idea {
     module {
         downloadSources = true
