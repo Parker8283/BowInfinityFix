@@ -1,9 +1,11 @@
 {
-  "required": true,
   "package": "net.parker8283.bif",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BowInfinityFix"
+  ],
+  "client": [
+    "BIFLocalPlayer"
   ],
   "injectors": {
     "defaultRequire": 1

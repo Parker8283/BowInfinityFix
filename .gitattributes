@@ -1,0 +1,9 @@
+# Auto detect text files and perform normalization
+*              text=auto
+
+gradlew        text eol=lf
+*.bat          text eol=crlf
+
+# Prevent tthese files from being added to archive files
+.gitattributes export-ignore
+.gitignore     export-ignore
