@@ -1,0 +1,7 @@
+{
+  "package": "net.parker8283.bif.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "BIFLocalPlayer"
+  ]
+}

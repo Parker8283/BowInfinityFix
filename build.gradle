@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'idea'
-    id 'net.neoforged.gradle.userdev' version '7.0.152'
+    id 'net.neoforged.gradle.userdev' version '7.0.170'
 }
 
 version = mod_version
@@ -29,14 +29,14 @@ runs {
     }
     server {
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-        programArgument '--nogui'
+        argument '--nogui'
     }
     gameTestServer {
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
     }
     data {
         workingDirectory project.file('run-data')
-        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
 
@@ -47,7 +47,7 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 }
 
-tasks.named('processResources', ProcessResources).configure {
+tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
             neo_version: neo_version, neo_version_range: neo_version_range,
