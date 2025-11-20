@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.8-SNAPSHOT'
+    id 'fabric-loom' version "${loom_version}"
 }
 
 version = project.mod_version
@@ -68,5 +68,5 @@ jar {
 }
 
 tasks.withType(org.gradle.jvm.tasks.Jar).configureEach {
-    it.archiveAppendix.set "1.21-fabric"
+    it.archiveAppendix.set "1.21.9-fabric"
 }
