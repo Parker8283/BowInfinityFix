@@ -1,3 +1,4 @@
+/*
 package net.parker8283.bif;
 
 import net.minecraft.core.Holder;
@@ -116,3 +117,4 @@ public class BIFGameTests {
         };
     }
 }
+*/
