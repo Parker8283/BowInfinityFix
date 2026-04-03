@@ -75,7 +75,7 @@ tasks.named('jar', Jar).configure {
         ])
     }
     from ("LICENSE") { rename { "${it}_${project.name}" } }
-    archiveAppendix.set "1.21-neo"
+    archiveAppendix.set "26.1-neo"
 }
 
 tasks.withType(JavaCompile).configureEach {
