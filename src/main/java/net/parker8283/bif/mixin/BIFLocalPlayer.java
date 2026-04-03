@@ -22,8 +22,8 @@ public abstract class BIFLocalPlayer {
     // actually used, force the client to restart its use animation if it gets a different hand from the Server.
     // NOTE: This injection point is just after the InteractionHand local, but just before the if statement.
     @Inject(method = "onSyncedDataUpdated(Lnet/minecraft/network/syncher/EntityDataAccessor;)V", at = @At(value = "JUMP", opcode = Opcodes.IFEQ, ordinal = 1, shift = At.Shift.BY, by = -1))
-    private void correctHand(EntityDataAccessor<?> dataAccessor, CallbackInfo ci, @Local InteractionHand realUseHand) {
-        if (this.usingItemHand != realUseHand) {
+    private void correctHand(EntityDataAccessor<?> accessor, CallbackInfo ci, @Local InteractionHand serverUsingHand) {
+        if (this.usingItemHand != serverUsingHand) {
             this.startedUsingItem = false;
         }
     }
