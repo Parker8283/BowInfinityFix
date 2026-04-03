@@ -14,8 +14,8 @@
   "environment": "*",
   "mixins": ["bif.mixins.json"],
   "depends": {
-    "fabricloader": ">=0.17.0",
-    "minecraft": "~1.21.9",
-    "java": ">=21"
+    "fabricloader": ">=0.18.6",
+    "minecraft": "~26.1",
+    "java": ">=25"
   }
 }

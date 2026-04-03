@@ -16,18 +16,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 // We're extending Entity here to get access to the `level()` function.
 @Mixin(Player.class)
 public abstract class BowInfinityFix extends Entity {
-    // We're required to have a constructor that matches `Entity`s constructor.
+    // We're required to have a constructor that matches Entity's constructor.
     // But I guess Mixin does some fancy stuff to not need to instantiate this. So we can make it private.
     private BowInfinityFix(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
 
     @Inject(at = @At("TAIL"), cancellable = true, method = "getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;")
-    private void init(ItemStack weaponStack, CallbackInfoReturnable<ItemStack> cir) {
+    private void init(ItemStack heldWeapon, CallbackInfoReturnable<ItemStack> cir) {
         if (this.level() instanceof ServerLevel level &&
             cir.getReturnValue().isEmpty()) {
             var ret = Items.ARROW.getDefaultInstance();
-            if (EnchantmentHelper.processAmmoUse(level, weaponStack, ret, 1) == 0) {
+            if (EnchantmentHelper.processAmmoUse(level, heldWeapon, ret, 1) == 0) {
                 cir.setReturnValue(ret);
             }
         }

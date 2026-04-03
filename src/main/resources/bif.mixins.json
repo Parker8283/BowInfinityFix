@@ -1,6 +1,6 @@
 {
   "package": "net.parker8283.bif",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [
     "BowInfinityFix"
   ],
