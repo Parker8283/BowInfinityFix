@@ -64,5 +64,5 @@ jar {
 }
 
 tasks.withType(org.gradle.jvm.tasks.Jar).configureEach {
-    it.archiveAppendix.set "1.21.9-fabric"
+    it.archiveAppendix.set "26.1-fabric"
 }
