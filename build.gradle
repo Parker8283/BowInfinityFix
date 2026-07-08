@@ -17,13 +17,6 @@ loom {
     }
 }
 
-repositories {
-    maven {
-        name = 'ParchmentMC'
-        url = 'https://maven.parchmentmc.org'
-    }
-}
-
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -64,5 +57,5 @@ jar {
 }
 
 tasks.withType(org.gradle.jvm.tasks.Jar).configureEach {
-    it.archiveAppendix.set "26.1-fabric"
+    it.archiveAppendix.set "26.2-fabric"
 }
