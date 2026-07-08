@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'idea'
-    id 'net.neoforged.gradle.userdev' version '7.1.21'
+    id 'net.neoforged.gradle.userdev' version '7.1.38'
 }
 
 version = mod_version
@@ -22,17 +22,18 @@ runs {
     configureEach {
         systemProperty 'forge.logging.markers', 'REGISTRIES'
         systemProperty 'forge.logging.console.level', 'debug'
+        workingDirectory project.layout.projectDirectory.dir('run').dir(name)
         modSources project.sourceSets.main, project.sourceSets.test
     }
     client {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
     }
     server {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         argument '--nogui'
     }
     gameTestServer {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
     }
     clientData {
         workingDirectory project.file('run-data')
@@ -75,7 +76,7 @@ tasks.named('jar', Jar).configure {
         ])
     }
     from ("LICENSE") { rename { "${it}_${project.name}" } }
-    archiveAppendix.set "26.1-neo"
+    archiveAppendix.set "26.2-neo"
 }
 
 tasks.withType(JavaCompile).configureEach {
